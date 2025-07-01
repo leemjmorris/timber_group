@@ -17,6 +17,7 @@ public:
 	static bool GetKeyDown(sf::Keyboard::Key key);
 	static bool GetKeyUp(sf::Keyboard::Key key);
 	static bool GetKey(sf::Keyboard::Key key);
+	static bool AnyKeyDown();
 
 	static bool Contains(const std::list<sf::Keyboard::Key>& list, sf::Keyboard::Key key);
 	static void Remove(std::list<sf::Keyboard::Key>& list, sf::Keyboard::Key key);

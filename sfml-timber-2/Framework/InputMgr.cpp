@@ -54,6 +54,18 @@ bool InputMgr::GetKey(sf::Keyboard::Key key)
 	return Contains(heldKeys, key);
 }
 
+bool InputMgr::AnyKeyDown()
+{
+	for (int i = 0; i < sf::Keyboard::KeyCount; ++i)
+	{
+		if (GetKeyDown((sf::Keyboard::Key)i))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 bool InputMgr::Contains(const std::list<sf::Keyboard::Key>& list, sf::Keyboard::Key key)
 {
 	return std::find(list.begin(), list.end(), key) != list.end();

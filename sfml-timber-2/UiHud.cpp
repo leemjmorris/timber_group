@@ -1,10 +1,7 @@
 #include "stdafx.h"
 #include "UiHud.h"
 
-UiHud::UiHud(const std::string& name)
-	: GameObject(name)
-{
-}
+UiHud::UiHud(const std::string& name) : GameObject(name) {}
 
 void UiHud::SetScore(int score)
 {
