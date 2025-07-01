@@ -94,6 +94,7 @@ void SceneGame::Update(float dt)
             player->SetSide(Sides::Left);
             score += 10;
             uiHud->SetScore(score);            
+            SoundMgr::PlayChop();
         }
 
         if (InputMgr::GetKeyDown(sf::Keyboard::Right))
@@ -103,6 +104,7 @@ void SceneGame::Update(float dt)
             player->SetSide(Sides::Right);
             score += 10;
             uiHud->SetScore(score);
+            SoundMgr::PlayChop();
         }
 
         player->SetDrawAxe(
@@ -116,6 +118,7 @@ void SceneGame::Update(float dt)
 
             uiHud->SetShowMassage(true);
             uiHud->SetMessage("Enter to Restart!");
+            SoundMgr::PlayDeath();
         }
 
         timer -= dt;
@@ -129,6 +132,7 @@ void SceneGame::Update(float dt)
 
             uiHud->SetShowMassage(true);
             uiHud->SetMessage("Enter to Restart!");
+            SoundMgr::PlayOutTime();
         }
         uiHud->SetTimeBar(timer / timerMax);
     }
