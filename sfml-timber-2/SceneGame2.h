@@ -5,21 +5,26 @@ class Player;
 class Tree;
 class UiHud;
 
-class SceneGame : public Scene
+class SceneGame2 : public Scene
 {
 protected:
-	Player* player;
-	Tree* tree;
-	UiHud* uiHud;
+	Player* player1;
+	Tree* tree1;
+	UiHud* uiHud1;
+	Player* player2;
+	Tree* tree2;
+	UiHud* uiHud2;
 
 	bool isPlaying = false;
-	int score = 0;
-	float timer = 0.f;
+	int score1 = 0;
+	int score2 = 0;
+	float timer1 = 0.f;
+	float timer2 = 0.f;
 	float timerMax = 5.f;
 
 public:
-	SceneGame();
-	~SceneGame() override;
+	SceneGame2();
+	~SceneGame2() override;
 
 	void Init() override;
 	void Enter() override;

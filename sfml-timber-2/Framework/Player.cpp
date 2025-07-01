@@ -70,6 +70,8 @@ void Player::Reset()
 	axe.setTexture(TEXTURE_MGR.Get(axeTexId));
 	Utils::SetOrigin(axe, Origins::BC);
 
+	// 포지션하고 axeposition Player에 따라 0 : 1인용,1 : 2인용 1번,2 : 2인용 2번으로 분기
+
 	SetSide(Sides::Right);
 }
 

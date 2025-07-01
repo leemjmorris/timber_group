@@ -32,7 +32,6 @@ void UiHud::Init()
 
 	textScore.setCharacterSize(100);
 	textScore.setFillColor(sf::Color::White);
-	textScore.setPosition(20, 20);
 
 	textMessage.setCharacterSize(100);
 	textMessage.setFillColor(sf::Color::White);
@@ -43,10 +42,6 @@ void UiHud::Init()
 	timeBar.setSize(timeBarSize);
 
 	Utils::SetOrigin(timeBar, Origins::BL);
-
-	timeBar.setPosition(bounds.width * 0.5f - timeBarSize.x * 0.5f,
-		bounds.height - 100.f);
-
 }
 
 void UiHud::Release()
@@ -62,6 +57,11 @@ void UiHud::Reset()
 	isShowMessage = true;
 	SetMessage("Message!");
 	SetTimeBar(1.f);
+
+	// 0,1,2 ·Î ºÐ±â
+	textScore.setPosition(20, 20);
+	sf::FloatRect bounds = FRAMEWORK.GetWindowBounds();
+	timeBar.setPosition(bounds.width * 0.5f - timeBarSize.x * 0.5f, bounds.height - 100.f);
 }
 
 void UiHud::Update(float dt)

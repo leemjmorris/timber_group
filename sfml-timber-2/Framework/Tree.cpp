@@ -3,6 +3,7 @@
 
 void Tree::SetPosition(const sf::Vector2f& pos)
 {
+	// 0,1,2 ·Î ºÐ±â
 	position = pos;
 
 	tree.setPosition(pos);
