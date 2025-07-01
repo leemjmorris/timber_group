@@ -26,6 +26,7 @@ void SceneGame::Init()
     texIds.push_back("graphics/player.png");
     texIds.push_back("graphics/axe.png");
     texIds.push_back("graphics/rip.png");
+    texIds.push_back("graphics/log.png");
 
     fontIds.push_back("fonts/KOMIKAP_.ttf");
 
@@ -90,46 +91,34 @@ void SceneGame::Update(float dt)
         if (InputMgr::GetKeyDown(sf::Keyboard::Left))
         {
             tree->UpdateBranches();
+            tree->UpdateLogSide(Sides::Left);
             player->SetSide(Sides::Left);
-            if (tree->GetSide() == player->GetSide())
-            {
-                isPlaying = false;
-                FRAMEWORK.SetTimeScale(0.f);
-                player->SetAlive(false);
-
-                uiHud->SetShowMassage(true);
-                uiHud->SetMessage("Enter to Restart!");
-            }
-            else
-            {
-                score += 10;
-                uiHud->SetScore(score);
-            }
+            score += 10;
+            uiHud->SetScore(score);            
         }
 
         if (InputMgr::GetKeyDown(sf::Keyboard::Right))
         {
             tree->UpdateBranches();
+            tree->UpdateLogSide(Sides::Right);
             player->SetSide(Sides::Right);
-            if (tree->GetSide() == player->GetSide())
-            {
-                isPlaying = false;
-                FRAMEWORK.SetTimeScale(0.f);
-                player->SetAlive(false);
-
-                uiHud->SetShowMassage(true);
-                uiHud->SetMessage("Enter to Restart!");
-            }
-            else
-            {
-                score += 10;
-                uiHud->SetScore(score);
-            }
+            score += 10;
+            uiHud->SetScore(score);
         }
 
         player->SetDrawAxe(
             InputMgr::GetKey(sf::Keyboard::Left) || InputMgr::GetKey(sf::Keyboard::Right));
-     
+        
+        if (tree->GetSide() == player->GetSide())
+        {
+            isPlaying = false;
+            FRAMEWORK.SetTimeScale(0.f);
+            player->SetAlive(false);
+
+            uiHud->SetShowMassage(true);
+            uiHud->SetMessage("Enter to Restart!");
+        }
+
         timer -= dt;
         if (timer <= 0.f)
         {
@@ -161,7 +150,5 @@ void SceneGame::Update(float dt)
 
             uiHud->SetShowMassage(false);
         }
-    }
-
-    
+    }    
 }

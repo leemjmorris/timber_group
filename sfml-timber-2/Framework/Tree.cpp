@@ -10,6 +10,11 @@ void Tree::SetPosition(const sf::Vector2f& pos)
 	{
 		branches[i].setPosition(pos.x, i * 150.f);
 	}
+
+	for (int i = 0; i < logs.size(); ++i)
+	{
+		logs[i].setPosition(pos.x, 840.f);
+	}
 }
 
 Sides Tree::UpdateBranches()
@@ -36,13 +41,29 @@ Sides Tree::UpdateBranches()
 	return branchesSide[0];
 }
 
+void Tree::UpdateLogSide(Sides side)
+{
+	logSide[logIndex] = side;
+	logIndex = (logIndex + 1) % LOGCOUNT;
+	logs[logIndex].setPosition(FRAMEWORK.GetWindowBounds().width * 0.5f, 840.f);
+	logSide[logIndex] = Sides::None;
+}
+
 void Tree::Init()
 {
 	texIdTree = "graphics/tree.png";
 	texIdBranch = "graphics/branch.png";
+	texIdLog = "graphics/log.png";
 
 	branches.resize(6);
 	branchesSide.resize(6);
+	logs.resize(LOGCOUNT);
+	logSide.resize(LOGCOUNT);
+
+	logVec.resize(3);
+	logVec[(int)Sides::Left] = { 2500.f , -500.f };
+	logVec[(int)Sides::Right] = { -2500.f , -500.f };
+	logVec[(int)Sides::None] = { 0.f, 0.f };
 }
 
 void Tree::Release()
@@ -75,13 +96,25 @@ void Tree::Reset()
 	}
 	branchesSide[branches.size() - 1] = Sides::None;
 
+	for (int i = 0; i < logs.size(); ++i)
+	{
+		logs[i].setTexture(TEXTURE_MGR.Get(texIdLog));
+		Utils::SetOrigin(logs[i], Origins::MC);
+		logSide[i] = Sides::None;
+	}
+
 	sf::FloatRect windowBounds = FRAMEWORK.GetWindowBounds();
 	SetPosition({ windowBounds.width * 0.5f, 0.f });
 }
 
 void Tree::Update(float dt)
 {
-
+	for (int i = 0; i < logs.size(); ++i)
+	{
+		sf::Vector2f pos = logs[i].getPosition();
+		pos += logVec[(int)logSide[i]] * dt;
+		logs[i].setPosition(pos);
+	}
 }
 
 void Tree::Draw(sf::RenderWindow& window)
@@ -94,5 +127,10 @@ void Tree::Draw(sf::RenderWindow& window)
 		{
 			window.draw(branches[i]);
 		}
+	}
+
+	for (int i = 0; i < logs.size(); ++i)
+	{
+		window.draw(logs[i]);
 	}
 }
