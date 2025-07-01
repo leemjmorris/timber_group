@@ -6,12 +6,16 @@ void Framework::Init(int w, int h, const std::string& t)
 	window.create(sf::VideoMode(w, h), t);
 
     // texIds, fontIds, soundIds
+    soundIds.push_back("sound/chop.wav");
+    soundIds.push_back("sound/death.wav");
+    soundIds.push_back("sound/out_of_time.wav");
 
 	TEXTURE_MGR.Load(texIds);
 	FONT_MGR.Load(fontIds);
 	SOUNDBUFFER_MGR.Load(soundIds);
 
 	InputMgr::Init();
+    SoundMgr::Init();
 	SCENE_MGR.Init();
 }
 

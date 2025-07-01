@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "InputMgr.h"
+#include "SoundMgr.h"
 
 std::list<sf::Keyboard::Key> InputMgr::downKeys;
 std::list<sf::Keyboard::Key> InputMgr::heldKeys;

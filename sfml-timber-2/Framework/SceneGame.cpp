@@ -53,7 +53,6 @@ void SceneGame::Init()
     element->SetMoveType(BackgroundElement::MoveType::Wave);
 
     player = (Player*)AddGameObject(new Player());
-
     uiHud = (UiHud*)AddGameObject(new UiHud());
 
     Scene::Init();
