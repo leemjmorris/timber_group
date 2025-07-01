@@ -29,7 +29,7 @@ void SceneGame::Init()
     texIds.push_back("graphics/log.png");
 
     fontIds.push_back("fonts/KOMIKAP_.ttf");
-
+        
     //
 
     AddGameObject(new SpriteGo("graphics/background.png"));
