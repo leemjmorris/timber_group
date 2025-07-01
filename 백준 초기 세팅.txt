@@ -1,0 +1,15 @@
+using System;
+
+namespace A{
+    class B{
+        static void Main(){
+            string[] str = Console.ReadLine().Split();
+            int n = int.Parse(Console.ReadLine());
+        }
+    }
+}
+
+// 출력반복이 많을 경우 더 빠름.
+     	Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));	
+	~~~~~~~	
+    	Console.Out.Flush();
