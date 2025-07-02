@@ -1,4 +1,6 @@
 #pragma once
+#include "SceneSelectMode.h"
+
 class SceneMgr : public Singleton<SceneMgr>
 {
 	friend class Singleton<SceneMgr>;

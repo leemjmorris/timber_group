@@ -27,10 +27,11 @@ void SceneGame::Init()
     texIds.push_back("graphics/rip.png");
     texIds.push_back("graphics/log.png");
 
+
     fontIds.push_back("fonts/KOMIKAP_.ttf");
         
     //
-
+   
     AddGameObject(new SpriteGo("graphics/background.png"));
     
     for (int i = 0; i < 3; ++i)
@@ -83,6 +84,10 @@ void SceneGame::Exit()
 void SceneGame::Update(float dt)
 {
     Scene::Update(dt);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace))
+    {
+        SCENE_MGR.ChangeScene(SceneIds::SelectMode);  // 선택 씬으로 전환
+    }
 
     if (isPlaying)
     {

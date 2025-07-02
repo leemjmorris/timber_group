@@ -7,6 +7,7 @@
 #include "SceneTitle.h"
 #include "SceneChar.h"
 
+
 void SceneMgr::Init()
 {
 	scenes.push_back(new SceneTitle()); //0
@@ -20,7 +21,7 @@ void SceneMgr::Init()
 		scene->Init();
 	}
 
-	currentScene = startScene;
+	currentScene = ModeScene;
 	scenes[(int)currentScene]->Enter();
 }
 

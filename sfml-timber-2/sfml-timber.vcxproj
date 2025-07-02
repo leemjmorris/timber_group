@@ -154,6 +154,7 @@
     <ClCompile Include="Framework\SceneDev2.cpp" />
     <ClCompile Include="Framework\SceneGame.cpp" />
     <ClCompile Include="Framework\SceneMgr.cpp" />
+    <ClCompile Include="Framework\SceneSelectMode.cpp" />
     <ClCompile Include="Framework\SoundMgr.cpp" />
     <ClCompile Include="Framework\SceneGame2.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -183,6 +184,7 @@
     <ClInclude Include="Framework\SceneMgr.h" />
     <ClInclude Include="Framework\SoundMgr.h" />
     <ClInclude Include="Framework\SceneGame2.h" />
+    <ClInclude Include="Framework\SceneSelectMode.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />

@@ -12,7 +12,7 @@ void SceneDev2::Init()
 	fontIds.push_back("fonts/KOMIKAP_.ttf");
 
 	TextGo* go = new TextGo("fonts/KOMIKAP_.ttf");
-	go->SetString("Dev 2");
+	go->SetString("Dev2");
 	go->SetCharacterSize(30);
 	go->SetFillColor(sf::Color::White);
 	AddGameObject(go);
