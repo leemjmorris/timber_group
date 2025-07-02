@@ -24,7 +24,7 @@ protected:
 	GameMode selectedMode = GameMode::None;
 
 public:
-	SceneSelectMode():Scene(SceneIds::Select) {}
+	SceneSelectMode():Scene(SceneIds::Mode) {}
 	~SceneSelectMode()override=default;
 
 	void SetModeTitle(const std::string& msg);
