@@ -48,6 +48,8 @@ void SceneTitle::Init()
 void SceneTitle::Enter()
 {
 	Scene::Enter();
+
+	SoundMgr::soundIntro.play();
 	Reset();
 
 	sf::Vector2f size = FRAMEWORK.GetWindowBounds().getSize();
@@ -71,12 +73,6 @@ void SceneTitle::Reset()
 
 void SceneTitle::Update(float dt)
 {
-	if (InputMgr::AnyKeyDown())
-	{
-		SCENE_MGR.ChangeScene(SceneIds::Mode);
-		return;
-	}
-
 	if (fadeIn)
 	{
 		fadeAlpha -= (int)(fadeSpeed * dt);
@@ -88,18 +84,25 @@ void SceneTitle::Update(float dt)
 		fadeRect.setFillColor(sf::Color(0, 0, 0, (char)fadeAlpha));
 
 	}
+
 	else if (fadeOut)
 	{
 		fadeAlpha += (int)(fadeSpeed * dt);
 		if (fadeAlpha > 255)
 		{
 			fadeAlpha = 255;
+			SCENE_MGR.ChangeScene(SceneIds::Select);
+			SoundMgr::soundIntro.pause();
 		}
 		fadeRect.setFillColor(sf::Color(0, 0, 0, (char)fadeAlpha));
 	}
+
 	else
 	{
-		
+		if (InputMgr::AnyKeyDown())
+		{
+			fadeOut = true;
+		}
 	}
 
 	blinkTimer += dt;

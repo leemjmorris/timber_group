@@ -9,6 +9,9 @@ void Framework::Init(int w, int h, const std::string& t)
     soundIds.push_back("sound/chop.wav");
     soundIds.push_back("sound/death.wav");
     soundIds.push_back("sound/out_of_time.wav");
+    soundIds.push_back("sound/intro_music.mp3");
+    soundIds.push_back("sound/player1_select.wav");
+    soundIds.push_back("sound/player2_select.wav");
 
 	TEXTURE_MGR.Load(texIds);
 	FONT_MGR.Load(fontIds);

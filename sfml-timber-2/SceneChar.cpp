@@ -107,8 +107,13 @@ void SceneChar::Reset()
 	isShowP1Message = true;
 	isShowP2Message = true;
 
-	SetP1Message("Player 1");
-	SetP2Message("Player 2");
+	isP1Selected = false;
+	isP2Selected = false;
+	index1 = 3;
+	index2 = 0;
+
+	SetP1Message("Player 2");
+	SetP2Message("Player 1");
 }
 
 
@@ -146,6 +151,7 @@ void SceneChar::Update(float dt)
 
 		if (InputMgr::GetKeyDown(sf::Keyboard::LShift))
 		{
+			SoundMgr::soundP1Select.play();
 			switch (index2)
 			{
 			case 0:
@@ -191,6 +197,7 @@ void SceneChar::Update(float dt)
 
 		if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
 		{
+			SoundMgr::soundP2Select.play();
 			switch (index1)
 			{
 				case 0:
