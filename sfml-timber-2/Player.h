@@ -6,19 +6,23 @@ class Player : public GameObject
 protected:
 	sf::Sprite sprite;
 	sf::Sprite axe;
+	sf::Sprite aura;
 
 	Sides side = Sides::Right;
 
 	std::vector<sf::Vector2f> positions;
 	std::vector<sf::Vector2f> scales;
 	std::vector<sf::Vector2f> axePositions;
+	std::vector<sf::Vector2f> auraPositions;
 
 	std::string texPlayerId;
 	std::string ripTexId;
 	std::string axeTexId;
+	std::string auraTexId;
 
 	bool isAlive = true;
 	bool drawAxe = false;
+	bool drawAura = false;
 
 	PlayerSlot slot = PlayerSlot::Single;
 
@@ -28,6 +32,7 @@ public:
 	
 	void SetAlive(bool alive);
 	void SetDrawAxe(bool draw) { drawAxe = draw; }
+	void SetDrawAura(bool draw) { drawAura = draw; }
 
 	void SetSide(Sides s);
 	Sides GetSide() const { return side; }

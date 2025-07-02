@@ -21,7 +21,7 @@ void SceneChar::Init()
 	fontIds.push_back("fonts/KOMIKAP_.ttf");
 
 	fontId = "fonts/KOMIKAP_.ttf";
-
+		 
 	AddGameObject(new SpriteGo("graphics/char_select.png"));
 
 	player = (Player*)AddGameObject(new Player());
@@ -83,4 +83,3 @@ void SceneChar::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
 }
-

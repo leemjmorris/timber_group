@@ -6,6 +6,7 @@
 #include "Tree.h"
 #include "Player.h"
 #include "UiHud.h"
+#include "SceneChar.h"
 
 SceneGame2::SceneGame2()
     : Scene(SceneIds::Game)
@@ -26,6 +27,7 @@ void SceneGame2::Init()
     texIds.push_back("graphics/player.png");
     texIds.push_back("graphics/axe.png");
     texIds.push_back("graphics/rip.png");
+    texIds.push_back("graphics/aura.png");
     texIds.push_back("graphics/log.png");
 
     fontIds.push_back("fonts/KOMIKAP_.ttf");

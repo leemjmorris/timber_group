@@ -31,6 +31,11 @@ void Player::SetSide(Sides s)
 
 	axe.setPosition(position + axePositions[(int)side]);
 	axe.setScale(scales[(int)side]);
+
+	aura.setPosition(position + auraPositions[(int)side]);
+	sf::Vector2f auraScale = scales[(int)side];
+	auraScale.x *= 1.5f;
+	aura.setScale(auraScale);
 }
 
 void Player::SetPosition(const sf::Vector2f& pos)
@@ -38,6 +43,7 @@ void Player::SetPosition(const sf::Vector2f& pos)
 	position = pos;
 	sprite.setPosition(position + positions[(int)side]);
 	axe.setPosition(position + axePositions[(int)side]);
+	aura.setPosition(position + auraPositions[(int)side]);
 }
 
 void Player::Init()
@@ -49,6 +55,7 @@ void Player::Init()
 
 	axeTexId = "graphics/axe.png";
 	ripTexId = "graphics/rip.png";
+	auraTexId = "graphics/aura.png";
 
 	positions.resize(2);
 	positions[(int)Sides::Left] = { -300.f, 0.f };
@@ -61,6 +68,10 @@ void Player::Init()
 	axePositions.resize(2);
 	axePositions[(int)Sides::Left] = { -165.f, -55.f };
 	axePositions[(int)Sides::Right] = { 165.f, -55.f };
+	
+	auraPositions.resize(2);
+	auraPositions[(int)Sides::Left] = { -290.f, 20.f };
+	auraPositions[(int)Sides::Right] = { 290.f, 20.f };
 }
 
 void Player::Release()
@@ -75,28 +86,9 @@ void Player::Reset()
 	axe.setTexture(TEXTURE_MGR.Get(axeTexId));
 	Utils::SetOrigin(axe, Origins::BC);
 
-	// PlaySlot에 따라 분기
-	switch (slot)
-	{
-		case PlayerSlot::Single:
-			positions[(int)Sides::Left] = { -300.f, 0.f };
-			positions[(int)Sides::Right] = { 300.f, 0.f };
-			axePositions[(int)Sides::Left] = { -165.f, -55.f };
-			axePositions[(int)Sides::Right] = { 165.f, -55.f };
-			break;
-		case PlayerSlot::CoopPlayer1:
-			positions[(int)Sides::Left] = { -300.f, 0.f };
-			positions[(int)Sides::Right] = { 300.f, 0.f };
-			axePositions[(int)Sides::Left] = { -165.f, -55.f };
-			axePositions[(int)Sides::Right] = { 165.f, -55.f };
-			break;
-		case PlayerSlot::CoopPlayer2:
-			positions[(int)Sides::Left] = { -300.f, 0.f };
-			positions[(int)Sides::Right] = { 300.f, 0.f };
-			axePositions[(int)Sides::Left] = { -165.f, -55.f };
-			axePositions[(int)Sides::Right] = { 165.f, -55.f };
-			break;
-	}
+	aura.setTexture(TEXTURE_MGR.Get(auraTexId));
+	aura.setScale({ 1.5f,1.f });
+	Utils::SetOrigin(aura, Origins::BC);
 
 	SetSide(Sides::Right);
 }
@@ -108,6 +100,11 @@ void Player::Update(float dt)
 
 void Player::Draw(sf::RenderWindow& window)
 {
+	if (drawAura)
+	{
+		window.draw(aura);
+	}
+
 	window.draw(sprite);
 
 	if (drawAxe)

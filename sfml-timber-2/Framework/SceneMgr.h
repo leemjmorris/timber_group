@@ -11,7 +11,7 @@ protected:
 
 	std::vector<Scene*> scenes;
 
-	SceneIds startScene = SceneIds::Select;
+	SceneIds startScene = SceneIds::Game2;
 	SceneIds currentScene = SceneIds::None;
 	SceneIds nextScene = SceneIds::None;
 
