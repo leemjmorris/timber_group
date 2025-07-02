@@ -10,7 +10,7 @@ void SceneMgr::Init()
 {
 	scenes.push_back(new SceneTitle()); //0
 	scenes.push_back(new SceneGame()); //1
-	scenes.push_back(new SceneChar()); //2
+	scenes.push_back(new SceneChar()); //2  여기도 나중에 공용으로 만져야 하는 구역
 	scenes.push_back(new SceneDev1());
 	scenes.push_back(new SceneDev2());
 
