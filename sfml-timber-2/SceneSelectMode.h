@@ -8,6 +8,7 @@ enum class GameMode
 	Singleplayer,
 	TwoPlayer
 };
+
 class SceneSelectMode : public Scene
 {
 protected:
