@@ -1,4 +1,6 @@
 #pragma once
+#include "SceneSelectMode.h"
+
 class SceneMgr : public Singleton<SceneMgr>
 {
 	friend class Singleton<SceneMgr>;
@@ -9,7 +11,7 @@ protected:
 
 	std::vector<Scene*> scenes;
 
-	SceneIds startScene = SceneIds::Game;
+	SceneIds ModeScene = SceneIds::SelectMode;
 	SceneIds currentScene = SceneIds::None;
 	SceneIds nextScene = SceneIds::None;
 
