@@ -160,7 +160,5 @@ void SceneGame::Update(float dt)
 
             uiHud->SetShowMassage(false);
         }
-    }
-
-    
+    }    
 }

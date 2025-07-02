@@ -85,7 +85,7 @@ void SceneTitle::Update(float dt)
 		if (fadeAlpha > 255)
 		{
 			fadeAlpha = 255;
-			SCENE_MGR.ChangeScene(SceneIds::Game);
+			SCENE_MGR.ChangeScene(SceneIds::Select);
 		}
 		fadeRect.setFillColor(sf::Color(0, 0, 0, (char)fadeAlpha));
 	}

@@ -9,8 +9,8 @@ protected:
 
 	std::vector<Scene*> scenes;
 
-	SceneIds startScene = SceneIds::Title;
-	SceneIds currentScene = SceneIds::Game;
+	SceneIds startScene = SceneIds::Select;
+	SceneIds currentScene = SceneIds::None;
 	SceneIds nextScene = SceneIds::None;
 
 public:
