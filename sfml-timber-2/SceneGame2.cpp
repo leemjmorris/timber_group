@@ -71,6 +71,11 @@ void SceneGame2::Enter()
 {
     Scene::Enter();
 
+    TEXTURE_MGR.Load(SceneChar::p1);
+    TEXTURE_MGR.Load(SceneChar::p2);
+    player1->SetSpriteP2();
+    player2->SetSpriteP1();
+
     sf::Vector2f pos1 = tree1->GetPosition();
     pos1.y = 900.f;
     player1->SetPosition(pos1);
@@ -95,6 +100,8 @@ void SceneGame2::Enter()
 void SceneGame2::Exit()
 {
     Scene::Exit();
+    TEXTURE_MGR.Unload(SceneChar::p1);
+    TEXTURE_MGR.Unload(SceneChar::p2);
 }
 
 void SceneGame2::Update(float dt)
@@ -299,4 +306,7 @@ void SceneGame2::Restart()
     fevertimer2 = 0.f;
     isFever1 = false;
     isFever2 = false;
+
+    player1->SetSpriteP2();
+    player2->SetSpriteP1();
 }

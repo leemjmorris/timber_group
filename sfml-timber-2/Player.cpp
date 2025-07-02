@@ -92,6 +92,7 @@ void Player::Reset()
 	Utils::SetOrigin(aura, Origins::BC);
 
 	SetSide(Sides::Right);
+	drawAura = false;
 }
 
 void Player::Update(float dt)
