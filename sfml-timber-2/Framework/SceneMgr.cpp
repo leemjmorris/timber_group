@@ -6,15 +6,19 @@
 #include "SceneDev2.h"
 #include "SceneTitle.h"
 #include "SceneChar.h"
+#include "SceneSelectMode.h"
 
 
 void SceneMgr::Init()
 {
-	scenes.push_back(new SceneTitle()); //0
-	scenes.push_back(new SceneGame()); //1
-	scenes.push_back(new SceneChar()); //2  ���⵵ ���߿� �������� ������ �ϴ� ����
+	scenes.push_back(new SceneTitle());
+	scenes.push_back(new SceneSelectMode());
+	scenes.push_back(new SceneGame());
+	scenes.push_back(new SceneChar()); 
+	scenes.push_back(new SceneGame2());
 	scenes.push_back(new SceneDev1());
-	scenes.push_back(new SceneDev2());
+	scenes.push_back(new SceneDev2()); 
+
 
 	for (auto scene : scenes)
 	{

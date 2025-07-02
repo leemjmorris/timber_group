@@ -1,9 +1,6 @@
 #pragma once
-#include "Scene.h"
-#include "GameObject.h"
-#include "Player.h"
 
-class player;
+class Player;
 
 class SceneChar :  public Scene
 {

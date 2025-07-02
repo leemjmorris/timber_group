@@ -10,15 +10,14 @@ enum class Origins
 	Custom  
 };  
 
-enum class SceneIds
+enum class SceneIds //SceneIds ¾Æ·¡ ÁÖ¼®Ãß°¡ÇÏ¸é ¿À·ù³²
 {
 	None = -1,
-	Title, //0
-	Game, //1
-	Select, //2
-	Mode, //3   ï¿½Ó½Ã·ï¿½ 2ï¿½ï¿½ 3ï¿½ï¿½ ï¿½Ú¸ï¿½ ï¿½Ù²ï¿½. ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½×½ï¿½Æ®ï¿½ï¿½.
-	Dev1, //4
-	Dev2, //5
+	Title,
+	Mode,
+	Game,
+	Select,
+	Game2,
 	Count,
 };
 
@@ -34,4 +33,11 @@ enum class PlayerSlot
 	Single,       
 	CoopPlayer1,  
 	CoopPlayer2   
+};
+enum class SelectMode 
+{
+	None,
+	SinglePlayer,
+	TwoPlayer
+
 };

@@ -76,6 +76,10 @@ void SceneChar::Reset()
 
 void SceneChar::Update(float dt)
 {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::Mode);  // 선택 씬으로 전환
+	}
 
 }
 

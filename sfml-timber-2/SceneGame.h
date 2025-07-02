@@ -1,6 +1,4 @@
 #pragma once
-#include "Scene.h"
-
 class Player;
 class Tree;
 class UiHud;
