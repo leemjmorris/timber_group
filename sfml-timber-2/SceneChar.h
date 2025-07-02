@@ -25,11 +25,10 @@ protected:
 	std::string fontId;
 	std::vector<Player*> characters;
 
+public:
 	static std::string p1;
 	static std::string p2;
 
-
-public:
 	SceneChar();
 	~SceneChar() override;
 

@@ -31,4 +31,3 @@ void SoundMgr::PlayOutTime()
 {
     soundOutTime.play();
 }
-

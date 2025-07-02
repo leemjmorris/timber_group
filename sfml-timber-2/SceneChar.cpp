@@ -107,8 +107,13 @@ void SceneChar::Reset()
 	isShowP1Message = true;
 	isShowP2Message = true;
 
-	SetP1Message("Player 1");
-	SetP2Message("Player 2");
+	isP1Selected = false;
+	isP2Selected = false;
+	index1 = 3;
+	index2 = 0;
+
+	SetP1Message("Player 2");
+	SetP2Message("Player 1");
 }
 
 

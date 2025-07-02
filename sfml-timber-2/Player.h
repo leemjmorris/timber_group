@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include <SceneChar.h>
 
 class Player : public GameObject
 {
@@ -41,6 +42,9 @@ public:
 	void SetTextureId(const std::string& id) { texPlayerId = id; }
 
 	void SetPlaySlot(PlayerSlot s) { slot = s; }
+
+	void SetSpriteP1() { sprite.setTexture(TEXTURE_MGR.Get(SceneChar::p1)); }
+	void SetSpriteP2() { sprite.setTexture(TEXTURE_MGR.Get(SceneChar::p2)); }
 
 	void Init() override;
 	void Release() override;
