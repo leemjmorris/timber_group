@@ -48,7 +48,6 @@ void SceneGame2::Init()
     element->maxSpeed = 600;
     element->SetMoveType(BackgroundElement::MoveType::Wave);
 
-    // 수정하기
     tree1 = (Tree*)AddGameObject(new Tree());    
     player1 = (Player*)AddGameObject(new Player());
     tree2 = (Tree*)AddGameObject(new Tree());
@@ -70,7 +69,6 @@ void SceneGame2::Enter()
 {
     Scene::Enter();
 
-    // 수정하기
     sf::Vector2f pos1 = tree1->GetPosition();
     pos1.y = 900.f;
     player1->SetPosition(pos1);
@@ -101,10 +99,9 @@ void SceneGame2::Update(float dt)
 {
     Scene::Update(dt);
 
-    // 수정하기
     if (isPlaying)
     {
-        if (InputMgr::GetKeyDown(sf::Keyboard::Left))
+        if (InputMgr::GetKeyDown(sf::Keyboard::A))
         {
             tree1->UpdateBranches();
             tree1->UpdateLogSide(Sides::Left);
@@ -114,7 +111,7 @@ void SceneGame2::Update(float dt)
             SoundMgr::PlayChop();
         }
 
-        if (InputMgr::GetKeyDown(sf::Keyboard::Right))
+        if (InputMgr::GetKeyDown(sf::Keyboard::D))
         {
             tree1->UpdateBranches();
             tree1->UpdateLogSide(Sides::Right);
@@ -124,7 +121,7 @@ void SceneGame2::Update(float dt)
             SoundMgr::PlayChop();
         }
 
-        if (InputMgr::GetKeyDown(sf::Keyboard::A))
+        if (InputMgr::GetKeyDown(sf::Keyboard::Left))
         {
             tree2->UpdateBranches();
             tree2->UpdateLogSide(Sides::Left);
@@ -134,7 +131,7 @@ void SceneGame2::Update(float dt)
             SoundMgr::PlayChop();
         }
 
-        if (InputMgr::GetKeyDown(sf::Keyboard::D))
+        if (InputMgr::GetKeyDown(sf::Keyboard::Right))
         {
             tree2->UpdateBranches();
             tree2->UpdateLogSide(Sides::Right);
@@ -144,8 +141,8 @@ void SceneGame2::Update(float dt)
             SoundMgr::PlayChop();
         }
 
-        player1->SetDrawAxe(InputMgr::GetKey(sf::Keyboard::Left) || InputMgr::GetKey(sf::Keyboard::Right));
-        player2->SetDrawAxe(InputMgr::GetKey(sf::Keyboard::A) || InputMgr::GetKey(sf::Keyboard::D));
+        player1->SetDrawAxe(InputMgr::GetKey(sf::Keyboard::A) || InputMgr::GetKey(sf::Keyboard::D));
+        player2->SetDrawAxe(InputMgr::GetKey(sf::Keyboard::Left) || InputMgr::GetKey(sf::Keyboard::Right));
 
         if (tree1->GetSide() == player1->GetSide())
         {
