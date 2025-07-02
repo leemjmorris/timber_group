@@ -26,3 +26,10 @@ enum class Sides
 	Right,
 	None,
 };
+
+enum class PlayerSlot
+{
+	Single,       
+	CoopPlayer1,  
+	CoopPlayer2   
+};

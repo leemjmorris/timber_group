@@ -19,8 +19,7 @@ protected:
 	int score1 = 0;
 	int score2 = 0;
 	float timer1 = 0.f;
-	float timer2 = 0.f;
-	float timerMax = 5.f;
+	float timerMax = 10.f;
 
 public:
 	SceneGame2();

@@ -58,10 +58,23 @@ void UiHud::Reset()
 	SetMessage("Message!");
 	SetTimeBar(1.f);
 
-	// 0,1,2 로 분기
-	textScore.setPosition(20, 20);
 	sf::FloatRect bounds = FRAMEWORK.GetWindowBounds();
-	timeBar.setPosition(bounds.width * 0.5f - timeBarSize.x * 0.5f, bounds.height - 100.f);
+	// PlaySlot으로 분기
+	switch (slot)
+	{
+		case PlayerSlot::Single:
+			textScore.setPosition(20, 20);
+			timeBar.setPosition(bounds.width * 0.5f - timeBarSize.x * 0.5f, bounds.height - 100.f);
+			break;
+		case PlayerSlot::CoopPlayer1:
+			textScore.setPosition(20, 20);
+			timeBar.setPosition(bounds.width * 0.25f - timeBarSize.x * 0.5f, bounds.height - 100.f);
+			break;
+		case PlayerSlot::CoopPlayer2:
+			textScore.setPosition(1920 * 0.5f + 20, 20);
+			timeBar.setPosition(bounds.width * 0.75f - timeBarSize.x * 0.5f, bounds.height - 100.f);
+			break;
+	}
 }
 
 void UiHud::Update(float dt)

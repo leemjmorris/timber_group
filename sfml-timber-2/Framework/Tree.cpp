@@ -3,7 +3,6 @@
 
 void Tree::SetPosition(const sf::Vector2f& pos)
 {
-	// 0,1,2 로 분기
 	position = pos;
 
 	tree.setPosition(pos);
@@ -46,7 +45,22 @@ void Tree::UpdateLogSide(Sides side)
 {
 	logSide[logIndex] = side;
 	logIndex = (logIndex + 1) % LOGCOUNT;
-	logs[logIndex].setPosition(FRAMEWORK.GetWindowBounds().width * 0.5f, 840.f);
+
+	sf::FloatRect windowBounds = FRAMEWORK.GetWindowBounds();
+	// PlaySlot으로 분기
+	switch (slot)
+	{
+		case PlayerSlot::Single:
+			logs[logIndex].setPosition(windowBounds.width * 0.5f, 840.f);
+			break;
+		case PlayerSlot::CoopPlayer1:
+			logs[logIndex].setPosition(windowBounds.width * 0.25f, 840.f);
+			break;
+		case PlayerSlot::CoopPlayer2:
+			logs[logIndex].setPosition(windowBounds.width * 0.75f, 840.f);
+			break;
+	}
+
 	logSide[logIndex] = Sides::None;
 }
 
@@ -105,7 +119,19 @@ void Tree::Reset()
 	}
 
 	sf::FloatRect windowBounds = FRAMEWORK.GetWindowBounds();
-	SetPosition({ windowBounds.width * 0.5f, 0.f });
+	// PlaySlot으로 분기
+	switch (slot)
+	{
+		case PlayerSlot::Single:
+			SetPosition({ windowBounds.width * 0.5f, 0.f });
+			break;
+		case PlayerSlot::CoopPlayer1:
+			SetPosition({ windowBounds.width * 0.25f, 0.f });
+			break;
+		case PlayerSlot::CoopPlayer2:
+			SetPosition({ windowBounds.width * 0.75f, 0.f });
+			break;
+	}
 }
 
 void Tree::Update(float dt)

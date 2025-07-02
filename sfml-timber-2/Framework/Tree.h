@@ -17,6 +17,8 @@ protected:
 	int logIndex = 0;
 	const int LOGCOUNT = 10;
 
+	PlayerSlot slot = PlayerSlot::Single;
+
 public:
 	Tree() = default;
 	~Tree() override = default;
@@ -24,6 +26,8 @@ public:
 	void SetPosition(const sf::Vector2f& pos) override;
 	Sides UpdateBranches();
 	void UpdateLogSide(Sides side);
+
+	void SetPlaySlot(PlayerSlot s) { slot = s; }
 
 	Sides GetSide() const { return branchesSide[branchesSide.size() - 1]; }
 

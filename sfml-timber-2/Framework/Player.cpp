@@ -70,7 +70,28 @@ void Player::Reset()
 	axe.setTexture(TEXTURE_MGR.Get(axeTexId));
 	Utils::SetOrigin(axe, Origins::BC);
 
-	// 포지션하고 axeposition Player에 따라 0 : 1인용,1 : 2인용 1번,2 : 2인용 2번으로 분기
+	// PlaySlot에 따라 분기
+	switch (slot)
+	{
+		case PlayerSlot::Single:
+			positions[(int)Sides::Left] = { -300.f, 0.f };
+			positions[(int)Sides::Right] = { 300.f, 0.f };
+			axePositions[(int)Sides::Left] = { -165.f, -55.f };
+			axePositions[(int)Sides::Right] = { 165.f, -55.f };
+			break;
+		case PlayerSlot::CoopPlayer1:
+			positions[(int)Sides::Left] = { -300.f, 0.f };
+			positions[(int)Sides::Right] = { 300.f, 0.f };
+			axePositions[(int)Sides::Left] = { -165.f, -55.f };
+			axePositions[(int)Sides::Right] = { 165.f, -55.f };
+			break;
+		case PlayerSlot::CoopPlayer2:
+			positions[(int)Sides::Left] = { -300.f, 0.f };
+			positions[(int)Sides::Right] = { 300.f, 0.f };
+			axePositions[(int)Sides::Left] = { -165.f, -55.f };
+			axePositions[(int)Sides::Right] = { 165.f, -55.f };
+			break;
+	}
 
 	SetSide(Sides::Right);
 }

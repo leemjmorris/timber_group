@@ -49,12 +49,19 @@ void SceneGame2::Init()
     element->SetMoveType(BackgroundElement::MoveType::Wave);
 
     // 수정하기
-    tree1 = (Tree*)AddGameObject(new Tree());
+    tree1 = (Tree*)AddGameObject(new Tree());    
     player1 = (Player*)AddGameObject(new Player());
-    uiHud1 = (UiHud*)AddGameObject(new UiHud());
     tree2 = (Tree*)AddGameObject(new Tree());
     player2 = (Player*)AddGameObject(new Player());
+    uiHud1 = (UiHud*)AddGameObject(new UiHud());
     uiHud2 = (UiHud*)AddGameObject(new UiHud());
+
+    tree1->SetPlaySlot(PlayerSlot::CoopPlayer1);
+    player1->SetPlaySlot(PlayerSlot::CoopPlayer1);
+    uiHud1->SetPlaySlot(PlayerSlot::CoopPlayer1);
+    tree2->SetPlaySlot(PlayerSlot::CoopPlayer2);
+    player2->SetPlaySlot(PlayerSlot::CoopPlayer2);
+    uiHud2->SetPlaySlot(PlayerSlot::CoopPlayer2);
 
     Scene::Init();
 }
@@ -64,18 +71,25 @@ void SceneGame2::Enter()
     Scene::Enter();
 
     // 수정하기
-    sf::Vector2f pos = tree1->GetPosition();
-    pos.y = 950.f;
-    player1->SetPosition(pos);
+    sf::Vector2f pos1 = tree1->GetPosition();
+    pos1.y = 900.f;
+    player1->SetPosition(pos1);
+    sf::Vector2f pos2 = tree2->GetPosition();
+    pos2.y = 900.f;
+    player2->SetPosition(pos2);
 
     score1 = 0;
+    score2 = 0;
     uiHud1->SetScore(score1);
+    uiHud2->SetScore(score2);
 
     timer1 = timerMax;
     uiHud1->SetTimeBar(timer1 / timerMax);
+    uiHud2->SetTimeBar(timer1 / timerMax);
 
     uiHud1->SetShowMassage(true);
     uiHud1->SetMessage("Enter to Start!");
+    uiHud2->SetShowMassage(false);
 }
 
 void SceneGame2::Exit()
@@ -110,8 +124,28 @@ void SceneGame2::Update(float dt)
             SoundMgr::PlayChop();
         }
 
-        player1->SetDrawAxe(
-            InputMgr::GetKey(sf::Keyboard::Left) || InputMgr::GetKey(sf::Keyboard::Right));
+        if (InputMgr::GetKeyDown(sf::Keyboard::A))
+        {
+            tree2->UpdateBranches();
+            tree2->UpdateLogSide(Sides::Left);
+            player2->SetSide(Sides::Left);
+            score2 += 10;
+            uiHud2->SetScore(score2);
+            SoundMgr::PlayChop();
+        }
+
+        if (InputMgr::GetKeyDown(sf::Keyboard::D))
+        {
+            tree2->UpdateBranches();
+            tree2->UpdateLogSide(Sides::Right);
+            player2->SetSide(Sides::Right);
+            score2 += 10;
+            uiHud2->SetScore(score2);
+            SoundMgr::PlayChop();
+        }
+
+        player1->SetDrawAxe(InputMgr::GetKey(sf::Keyboard::Left) || InputMgr::GetKey(sf::Keyboard::Right));
+        player2->SetDrawAxe(InputMgr::GetKey(sf::Keyboard::A) || InputMgr::GetKey(sf::Keyboard::D));
 
         if (tree1->GetSide() == player1->GetSide())
         {
@@ -120,7 +154,18 @@ void SceneGame2::Update(float dt)
             player1->SetAlive(false);
 
             uiHud1->SetShowMassage(true);
-            uiHud1->SetMessage("Enter to Restart!");
+            uiHud1->SetMessage("Player 2 Win!");
+            SoundMgr::PlayDeath();
+        }
+
+        if (tree2->GetSide() == player2->GetSide())
+        {
+            isPlaying = false;
+            FRAMEWORK.SetTimeScale(0.f);
+            player2->SetAlive(false);
+
+            uiHud1->SetShowMassage(true);
+            uiHud1->SetMessage("Player 1 Win!");
             SoundMgr::PlayDeath();
         }
 
@@ -132,12 +177,25 @@ void SceneGame2::Update(float dt)
             isPlaying = false;
             FRAMEWORK.SetTimeScale(0.f);
             player1->SetAlive(false);
+            player2->SetAlive(false);
 
             uiHud1->SetShowMassage(true);
-            uiHud1->SetMessage("Enter to Restart!");
+            if (score1 > score2)
+            {
+                uiHud1->SetMessage("Player1 Win!");
+            }
+            else if (score1 < score2)
+            {
+                uiHud1->SetMessage("Player2 Win!");
+            }
+            else
+            {
+                uiHud1->SetMessage("Draw!");
+            }
             SoundMgr::PlayOutTime();
         }
         uiHud1->SetTimeBar(timer1 / timerMax);
+        uiHud2->SetTimeBar(timer1 / timerMax);
     }
     else
     {
@@ -146,13 +204,18 @@ void SceneGame2::Update(float dt)
             FRAMEWORK.SetTimeScale(1.f);
             player1->Reset();
             tree1->Reset();
+            player2->Reset();
+            tree2->Reset();
             isPlaying = true;
 
             score1 = 0;
             uiHud1->SetScore(score1);
+            score2 = 0;
+            uiHud2->SetScore(score2);
 
             timer1 = timerMax;
             uiHud1->SetTimeBar(timer1 / timerMax);
+            uiHud2->SetTimeBar(timer1 / timerMax);
 
             uiHud1->SetShowMassage(false);
         }

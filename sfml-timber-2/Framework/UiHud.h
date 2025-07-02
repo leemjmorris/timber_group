@@ -12,6 +12,8 @@ protected:
 
 	sf::Vector2f timeBarSize;
 
+	PlayerSlot slot = PlayerSlot::Single;
+
 public:
 	UiHud(const std::string& name = "");
 	~UiHud() override = default;
@@ -20,6 +22,8 @@ public:
 	void SetMessage(const std::string& msg);
 	void SetShowMassage(bool show) { isShowMessage = show; }
 	void SetTimeBar(float value); // 0.f ~ 1.f
+
+	void SetPlaySlot(PlayerSlot s) { slot = s; }
 
 	void Init() override;
 	void Release() override;

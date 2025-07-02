@@ -20,6 +20,8 @@ protected:
 	bool isAlive = true;
 	bool drawAxe = false;
 
+	PlayerSlot slot = PlayerSlot::Single;
+
 public:
 	Player(const std::string& name = "");
 	~Player() override = default;
@@ -31,6 +33,8 @@ public:
 	Sides GetSide() const { return side; }
 
 	void SetPosition(const sf::Vector2f& pos) override;
+
+	void SetPlaySlot(PlayerSlot s) { slot = s; }
 
 	void Init() override;
 	void Release() override;
