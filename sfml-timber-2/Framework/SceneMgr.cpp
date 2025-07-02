@@ -21,7 +21,7 @@ void SceneMgr::Init()
 		scene->Init();
 	}
 
-	currentScene = ModeScene;
+	currentScene = startScene;
 	scenes[(int)currentScene]->Enter();
 }
 
