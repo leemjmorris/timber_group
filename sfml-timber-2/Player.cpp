@@ -18,6 +18,7 @@ void Player::SetAlive(bool alive)
 		sprite.setTexture(TEXTURE_MGR.Get(ripTexId));
 		sprite.setScale({ 1.f, 1.f });
 		drawAxe = false;
+		drawAura = false;
 	}
 	Utils::SetOrigin(sprite, Origins::BC);
 }

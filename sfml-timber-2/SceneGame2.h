@@ -19,11 +19,17 @@ protected:
 	int score1 = 0;
 	int score2 = 0;
 	float timer1 = 0.f;
-	float timerMax = 50.f;
+	float timerMax = 30.f;
+	
+	const int BASESCORE = 200;
+	int feverScore1 = BASESCORE;
+	int feverScore2 = BASESCORE;
+	float fevertimer1 = 0.f;
+	float fevertimer2 = 0.f;
+	float fevertime = 3.f;
 
-	int count = 0;
-	int feverCount = 10;
-	float fevertime = 5.f;
+	bool isFever1 = false;
+	bool isFever2 = false;
 
 public:
 	SceneGame2();
@@ -33,5 +39,16 @@ public:
 	void Enter() override;
 	void Exit() override;
 	void Update(float dt) override;
+
+	void PlayerOneKeyInput();
+	void PlayerTwoKeyInput();
+
+	void PlayerOneCrashCheck();
+	void PlayerTwoCrashCheck();
+
+	void TimerUpdate(float dt);
+	void FeverTimerUpdate(float dt);
+
+	void Restart();
 };
 

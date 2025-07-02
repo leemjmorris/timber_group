@@ -103,120 +103,196 @@ void SceneGame2::Update(float dt)
 
     if (isPlaying)
     {
-        if (InputMgr::GetKeyDown(sf::Keyboard::A))
-        {
-            tree1->UpdateBranches();
-            tree1->UpdateLogSide(Sides::Left);
-            player1->SetSide(Sides::Left);
-            score1 += 10;
-            uiHud1->SetScore(score1);
-            SoundMgr::PlayChop();
-        }
-
-        if (InputMgr::GetKeyDown(sf::Keyboard::D))
-        {
-            tree1->UpdateBranches();
-            tree1->UpdateLogSide(Sides::Right);
-            player1->SetSide(Sides::Right);
-            score1 += 10;
-            uiHud1->SetScore(score1);
-            SoundMgr::PlayChop();
-        }
-
-        if (InputMgr::GetKeyDown(sf::Keyboard::Left))
-        {
-            tree2->UpdateBranches();
-            tree2->UpdateLogSide(Sides::Left);
-            player2->SetSide(Sides::Left);
-            score2 += 10;
-            uiHud2->SetScore(score2);
-            SoundMgr::PlayChop();
-        }
-
-        if (InputMgr::GetKeyDown(sf::Keyboard::Right))
-        {
-            tree2->UpdateBranches();
-            tree2->UpdateLogSide(Sides::Right);
-            player2->SetSide(Sides::Right);
-            score2 += 10;
-            uiHud2->SetScore(score2);
-            SoundMgr::PlayChop();
-        }
+        PlayerOneKeyInput();
+        PlayerTwoKeyInput();
 
         player1->SetDrawAxe(InputMgr::GetKey(sf::Keyboard::A) || InputMgr::GetKey(sf::Keyboard::D));
         player2->SetDrawAxe(InputMgr::GetKey(sf::Keyboard::Left) || InputMgr::GetKey(sf::Keyboard::Right));
 
-        if (tree1->GetSide() == player1->GetSide())
-        {
-            isPlaying = false;
-            FRAMEWORK.SetTimeScale(0.f);
-            player1->SetAlive(false);
+        PlayerOneCrashCheck();
+        PlayerTwoCrashCheck();      
 
-            uiHud1->SetShowMassage(true);
-            uiHud1->SetMessage("Player 2 Win!");
-            SoundMgr::PlayDeath();
+        if (score1 >= feverScore1)
+        {
+            isFever1 = true;
+            fevertimer1 = 0.f;
+            player1->SetDrawAura(true);
+            feverScore1 *= 2;
         }
 
-        if (tree2->GetSide() == player2->GetSide())
+        if (score2 >= feverScore2)
         {
-            isPlaying = false;
-            FRAMEWORK.SetTimeScale(0.f);
-            player2->SetAlive(false);
-
-            uiHud1->SetShowMassage(true);
-            uiHud1->SetMessage("Player 1 Win!");
-            SoundMgr::PlayDeath();
+            isFever2 = true;
+            fevertimer2 = 0.f;
+            player2->SetDrawAura(true);
+            feverScore2 *= 2;
         }
 
-        timer1 -= dt;
-        if (timer1 <= 0.f)
-        {
-            timer1 = 0.f;
-
-            isPlaying = false;
-            FRAMEWORK.SetTimeScale(0.f);
-            player1->SetAlive(false);
-            player2->SetAlive(false);
-
-            uiHud1->SetShowMassage(true);
-            if (score1 > score2)
-            {
-                uiHud1->SetMessage("Player1 Win!");
-            }
-            else if (score1 < score2)
-            {
-                uiHud1->SetMessage("Player2 Win!");
-            }
-            else
-            {
-                uiHud1->SetMessage("Draw!");
-            }
-            SoundMgr::PlayOutTime();
-        }
-        uiHud1->SetTimeBar(timer1 / timerMax);
-        uiHud2->SetTimeBar(timer1 / timerMax);
+        TimerUpdate(dt);
+        FeverTimerUpdate(dt);
     }
     else
     {
         if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
         {
-            FRAMEWORK.SetTimeScale(1.f);
-            player1->Reset();
-            tree1->Reset();
-            player2->Reset();
-            tree2->Reset();
-            isPlaying = true;
-
-            score1 = 0;
-            uiHud1->SetScore(score1);
-            score2 = 0;
-            uiHud2->SetScore(score2);
-
-            timer1 = timerMax;
-            uiHud1->SetTimeBar(timer1 / timerMax);
-            uiHud2->SetTimeBar(timer1 / timerMax);
-
-            uiHud1->SetShowMassage(false);
+            Restart();
         }
     }
+}
+
+void SceneGame2::PlayerOneKeyInput()
+{
+    if (InputMgr::GetKeyDown(sf::Keyboard::A))
+    {
+        tree1->UpdateBranches();
+        tree1->UpdateLogSide(Sides::Left);
+        player1->SetSide(Sides::Left);        
+        score1 += isFever1 ? 20 : 10;
+        uiHud1->SetScore(score1);
+        SoundMgr::PlayChop();
+    }
+
+    if (InputMgr::GetKeyDown(sf::Keyboard::D))
+    {
+        tree1->UpdateBranches();
+        tree1->UpdateLogSide(Sides::Right);
+        player1->SetSide(Sides::Right);
+        score1 += isFever1 ? 20 : 10;
+        uiHud1->SetScore(score1);
+        SoundMgr::PlayChop();
+    }
+}
+
+void SceneGame2::PlayerTwoKeyInput()
+{
+    if (InputMgr::GetKeyDown(sf::Keyboard::Left))
+    {
+        tree2->UpdateBranches();
+        tree2->UpdateLogSide(Sides::Left);
+        player2->SetSide(Sides::Left);
+        score2 += isFever2 ? 20 : 10;
+        uiHud2->SetScore(score2);
+        SoundMgr::PlayChop();
+    }
+
+    if (InputMgr::GetKeyDown(sf::Keyboard::Right))
+    {
+        tree2->UpdateBranches();
+        tree2->UpdateLogSide(Sides::Right);
+        player2->SetSide(Sides::Right);
+        score2 += isFever2 ? 20 : 10;
+        uiHud2->SetScore(score2);
+        SoundMgr::PlayChop();
+    }
+}
+
+void SceneGame2::PlayerOneCrashCheck()
+{
+    if (tree1->GetSide() == player1->GetSide())
+    {
+        isPlaying = false;
+        FRAMEWORK.SetTimeScale(0.f);
+        player1->SetAlive(false);
+
+        uiHud1->SetShowMassage(true);
+        uiHud1->SetMessage("Player 2 Win!");
+        SoundMgr::PlayDeath();
+    }
+}
+
+void SceneGame2::PlayerTwoCrashCheck()
+{
+    if (tree2->GetSide() == player2->GetSide())
+    {
+        isPlaying = false;
+        FRAMEWORK.SetTimeScale(0.f);
+        player2->SetAlive(false);
+
+        uiHud1->SetShowMassage(true);
+        uiHud1->SetMessage("Player 1 Win!");
+        SoundMgr::PlayDeath();
+    }
+}
+
+void SceneGame2::TimerUpdate(float dt)
+{
+    timer1 -= dt;
+    if (timer1 <= 0.f)
+    {
+        timer1 = 0.f;
+
+        isPlaying = false;
+        FRAMEWORK.SetTimeScale(0.f);
+        player1->SetAlive(false);
+        player2->SetAlive(false);
+
+        uiHud1->SetShowMassage(true);
+        if (score1 > score2)
+        {
+            uiHud1->SetMessage("Player1 Win!");
+        }
+        else if (score1 < score2)
+        {
+            uiHud1->SetMessage("Player2 Win!");
+        }
+        else
+        {
+            uiHud1->SetMessage("Draw!");
+        }
+        SoundMgr::PlayOutTime();
+    }
+    uiHud1->SetTimeBar(timer1 / timerMax);
+    uiHud2->SetTimeBar(timer1 / timerMax);    
+}
+
+void SceneGame2::FeverTimerUpdate(float dt)
+{
+    if (isFever1)
+    {
+        fevertimer1 += dt;
+        if (fevertimer1 >= fevertime)
+        {
+            fevertimer1 = 0;
+            isFever1 = false;
+            player1->SetDrawAura(false);
+        }
+    }
+
+    if (isFever2)
+    {
+        fevertimer2 += dt;
+        if (fevertimer2 >= fevertime)
+        {
+            fevertimer2 = 0;
+            isFever2 = false;
+            player2->SetDrawAura(false);
+        }
+    }
+}
+
+void SceneGame2::Restart()
+{
+    FRAMEWORK.SetTimeScale(1.f);
+    player1->Reset();
+    tree1->Reset();
+    player2->Reset();
+    tree2->Reset();
+    isPlaying = true;
+
+    score1 = 0;
+    uiHud1->SetScore(score1);
+    score2 = 0;
+    uiHud2->SetScore(score2);
+
+    timer1 = timerMax;
+    uiHud1->SetTimeBar(timer1 / timerMax);
+    uiHud2->SetTimeBar(timer1 / timerMax);
+    uiHud1->SetShowMassage(false);
+
+    feverScore1 = BASESCORE;
+    feverScore2 = BASESCORE;
+    fevertimer1 = 0.f;
+    fevertimer2 = 0.f;
+    isFever1 = false;
+    isFever2 = false;
 }
