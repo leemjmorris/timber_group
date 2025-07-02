@@ -13,10 +13,12 @@ enum class Origins
 enum class SceneIds
 {
 	None = -1,
-	Game,
-	Game2,
-	Dev1,
-	Dev2,
+	Title, //0
+	Game, //1
+	Select, //2
+	Mode, //3   �ӽ÷� 2�� 3�� �ڸ� �ٲ�. ���߿� �� �ٲ������. �׽�Ʈ��.
+	Dev1, //4
+	Dev2, //5
 	Count,
 };
 

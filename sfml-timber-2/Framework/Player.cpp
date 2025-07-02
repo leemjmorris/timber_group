@@ -42,13 +42,18 @@ void Player::SetPosition(const sf::Vector2f& pos)
 
 void Player::Init()
 {
-	texPlayerId = "graphics/player.png";
+	if (texPlayerId.empty())
+	{
+		texPlayerId = "graphics/player.png";
+	}
+
 	axeTexId = "graphics/axe.png";
 	ripTexId = "graphics/rip.png";
 
 	positions.resize(2);
 	positions[(int)Sides::Left] = { -300.f, 0.f };
 	positions[(int)Sides::Right] = { 300.f, 0.f };
+
 	scales.resize(2);
 	scales[(int)Sides::Left] = { -1.f, 1.f };
 	scales[(int)Sides::Right] = { 1.f, 1.f };

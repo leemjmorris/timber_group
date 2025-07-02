@@ -33,6 +33,7 @@ public:
 	Sides GetSide() const { return side; }
 
 	void SetPosition(const sf::Vector2f& pos) override;
+	void SetTextureId(const std::string& id) { texPlayerId = id; }
 
 	void SetPlaySlot(PlayerSlot s) { slot = s; }
 

@@ -1,8 +1,7 @@
 #include "stdafx.h"
 #include "Scene.h"
 
-Scene::Scene(SceneIds id)
-	: Id(id)
+Scene::Scene(SceneIds id) : Id(id)
 {
 }
 

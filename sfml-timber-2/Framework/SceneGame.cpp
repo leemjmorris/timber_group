@@ -7,8 +7,7 @@
 #include "Player.h"
 #include "UiHud.h"
 
-SceneGame::SceneGame()
-	: Scene(SceneIds::Game)
+SceneGame::SceneGame() : Scene(SceneIds::Game)
 {
 }
 
