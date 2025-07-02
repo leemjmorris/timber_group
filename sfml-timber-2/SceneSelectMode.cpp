@@ -16,36 +16,41 @@ void SceneSelectMode::SetModeTitle(const std::string& msg)
 	modetitle->SetString(msg);
 	modetitle->SetCharacterSize(48);
 	modetitle->SetFillColor(sf::Color::White);
-	modetitle->SetPosition({ 200.0f, 50.0f }); // ¿øÇÏ´Â À§Ä¡·Î Á¶Á¤
+	modetitle->SetPosition({ 200.0f, 50.0f }); // ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 }
 void SceneSelectMode::Init()
-{	//ÆùÆ® °¡Á®¿À±â
-	texIds.push_back("graphics/background.png");
-	AddGameObject(new SpriteGo("graphics/background.png"));
-
+{	//ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	texIds.push_back("graphics/game_mode.jpg");
+	AddGameObject(new SpriteGo("graphics/game_mode.jpg"));
 	fontIds.push_back("fonts/KOMIKAP_.ttf");
-	
 
+	//1,2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½Ç¥
+	selectorArrow = (TextGo*)AddGameObject(new TextGo("fonts/KOMIKAP_.ttf"));
+	selectorArrow->SetString("->");
+	selectorArrow->SetCharacterSize(36);
+	selectorArrow->SetFillColor(sf::Color::Red);
+	selectorArrow->SetPosition({ 760.0f, 530.0f }); // 1ï¿½ï¿½ ï¿½ï¿½Ä¡
+
+	//ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	modetitle = (TextGo*)AddGameObject(new TextGo("fonts/KOMIKAP_.ttf"));
 	modetitle->SetString("TIMBER GAME");
-	//ÅØ½ºÆ® ¼³Á¤
 	modetitle->SetCharacterSize(72);
 	modetitle->SetFillColor(sf::Color::White);
-	modetitle->SetPosition({ 200.0f, 50.f });
+	modetitle->SetPosition({ 720.0f, 350.f });
 
 
-	//¸ðµå ¼±ÅÃ ÅØ½ºÆ®
+	//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ®
 	onePlayerText = (TextGo*)AddGameObject(new TextGo("fonts/KOMIKAP_.ttf"));
 	onePlayerText->SetString("1. Single Player");
 	onePlayerText->SetCharacterSize(36);
 	onePlayerText->SetFillColor(sf::Color::White);
-	onePlayerText->SetPosition({ 150.0f, 200.0f });
+	onePlayerText->SetPosition({ 800.0f, 530.0f });
 
 	twoPlayerText = (TextGo*)AddGameObject(new TextGo("fonts/KOMIKAP_.ttf"));
 	twoPlayerText->SetString("2. Two Player");
 	twoPlayerText->SetCharacterSize(36);
 	twoPlayerText->SetFillColor(sf::Color::White);
-	twoPlayerText->SetPosition({ 150.0f, 280.0f });
+	twoPlayerText->SetPosition({ 800.0f, 630.0f });
 
 	
 }
@@ -53,20 +58,70 @@ void SceneSelectMode::Update(float dt)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 	{
-		SCENE_MGR.ChangeScene(SceneIds::Game);  // °ÔÀÓ ¾ÀÀ¸·Î ÀüÈ¯
+		SCENE_MGR.ChangeScene(SceneIds::Game);  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 	}
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
+	if (InputMgr::GetKeyDown(sf::Keyboard::Up)||InputMgr::GetKeyDown(sf::Keyboard::Num1))
 	{
+		selectedIndex = 0;
 		selectedMode = GameMode::Singleplayer;
-		SCENE_MGR.ChangeScene(SceneIds::Game);
+		/*SCENE_MGR.ChangeScene(SceneIds::Game); */
 	}
+		
 	else if (InputMgr::GetKeyDown(sf::Keyboard::Num2))
 	{
+		selectedIndex = 1;
 		selectedMode = GameMode::TwoPlayer;
-		SCENE_MGR.ChangeScene(SceneIds::Dev2);
+		/*SCENE_MGR.ChangeScene(SceneIds::Select);*/
 	}
 
+	// Enterï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	{
+		if (selectedMode == GameMode::Singleplayer)
+		{
+			SCENE_MGR.ChangeScene(SceneIds::Game);
+		}
+		else if (selectedMode == GameMode::TwoPlayer)
+		{
+			SCENE_MGR.ChangeScene(SceneIds::Select); 
+		}
+	}
+	//ï¿½ï¿½ï¿½Ù¿ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½
+	if (InputMgr::GetKeyDown(sf::Keyboard::Up))
+	{
+		selectedIndex = std::max(0, selectedIndex - 1);
+		selectedMode = GameMode::Singleplayer;
+	}
+	else if (InputMgr::GetKeyDown(sf::Keyboard::Down))
+	{
+		selectedIndex = std::min(1, selectedIndex + 1);
+		selectedMode = GameMode::TwoPlayer;
+	}
+
+	// ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ È­ï¿½ï¿½Ç¥ ï¿½Ìµï¿½
+	if (selectorArrow != nullptr)
+	{
+		if (selectedIndex == 0)
+			selectorArrow->SetPosition({ 760.0f, 530.0f });
+		else
+			selectorArrow->SetPosition({ 760.0f, 630.0f });
+	}
+
+	if (selectedIndex == 0)
+	{
+		onePlayerText->SetCharacterSize(50);
+		twoPlayerText->SetCharacterSize(36);
+		onePlayerText->SetFillColor(sf::Color::Yellow);
+		twoPlayerText->SetFillColor(sf::Color::White);
+	}
+	else
+	{
+		onePlayerText->SetCharacterSize(36);
+		twoPlayerText->SetCharacterSize(50);
+		onePlayerText->SetFillColor(sf::Color::White);
+		twoPlayerText->SetFillColor(sf::Color::Yellow);
+	}
 }
 
 //void SceneSelectMode::Draw(sf::RenderWindow& window)

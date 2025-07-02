@@ -115,6 +115,10 @@ void SceneChar::Reset()
 void SceneChar::Update(float dt)
 {
 	Scene::Update(dt);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::Mode);  // ���� ������ ��ȯ
+	}
 
 	if (!isP2Selected)
 	{

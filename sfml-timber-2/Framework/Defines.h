@@ -10,7 +10,7 @@ enum class Origins
 	Custom  
 };  
 
-enum class SceneIds
+enum class SceneIds //SceneIds �Ʒ� �ּ��߰��ϸ� ������
 {
 	None = -1,
 	Title,
@@ -35,4 +35,11 @@ enum class PlayerSlot
 	Single,       
 	CoopPlayer1,  
 	CoopPlayer2   
+};
+enum class SelectMode 
+{
+	None,
+	SinglePlayer,
+	TwoPlayer
+
 };

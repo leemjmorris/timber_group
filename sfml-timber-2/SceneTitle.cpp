@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SceneTitle.h"
+
 #include "TextGo.h"
 #include "SpriteGo.h"
 #include "SceneMgr.h"
@@ -22,6 +23,8 @@ void SceneTitle::SetIntroMessage(const std::string& msg)
 
 void SceneTitle::Init()
 {
+	
+
 	texIds.push_back("graphics/main_title.png");
 	fontIds.push_back("fonts/KOMIKAP_.ttf");
 
@@ -67,7 +70,13 @@ void SceneTitle::Reset()
 }
 
 void SceneTitle::Update(float dt)
-{	
+{
+	if (InputMgr::AnyKeyDown())
+	{
+		SCENE_MGR.ChangeScene(SceneIds::Mode);
+		return;
+	}
+
 	if (fadeIn)
 	{
 		fadeAlpha -= (int)(fadeSpeed * dt);
@@ -85,16 +94,12 @@ void SceneTitle::Update(float dt)
 		if (fadeAlpha > 255)
 		{
 			fadeAlpha = 255;
-			SCENE_MGR.ChangeScene(SceneIds::Select);
 		}
 		fadeRect.setFillColor(sf::Color(0, 0, 0, (char)fadeAlpha));
 	}
 	else
 	{
-		if (InputMgr::AnyKeyDown())
-		{
-			fadeOut = true;
-		}
+		
 	}
 
 	blinkTimer += dt;

@@ -1,5 +1,4 @@
 #pragma once
-#include "Scene.h"
 class TextGo;
 
 enum class GameMode
@@ -12,6 +11,9 @@ enum class GameMode
 class SceneSelectMode : public Scene
 {
 protected:
+	int selectedIndex = 0; // 0 = single, 1 = two player
+	TextGo* selectorArrow = nullptr;
+
 	sf::Sprite onePlayerSprite;
 	sf::Sprite twoPlayerSprite;
 	
@@ -32,7 +34,7 @@ public:
 
 	void Init() override;
 	void Update(float dt) override;
-	/*void Draw(sf::RenderWindow& window) override;*/
+	
 };
 	
 
