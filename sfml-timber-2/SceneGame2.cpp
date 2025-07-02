@@ -100,6 +100,10 @@ void SceneGame2::Exit()
 void SceneGame2::Update(float dt)
 {
     Scene::Update(dt);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace))
+    {
+        SCENE_MGR.ChangeScene(SceneIds::Mode);  // 선택 씬으로 전환
+    }
 
     if (isPlaying)
     {
