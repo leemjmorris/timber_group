@@ -67,8 +67,8 @@ void SceneTitle::Reset()
 	
 	isShowTitleMessage = true;
 	isShowIntroMessage = true;
-	SetTitleMessage("TIMBER TIME!!!");
-	SetIntroMessage("< Press Any Key to Begin >");
+	SetTitleMessage("TIMBER TIME");
+	SetIntroMessage("Press Any Key to Begin");
 }
 
 void SceneTitle::Update(float dt)
@@ -91,7 +91,7 @@ void SceneTitle::Update(float dt)
 		if (fadeAlpha > 255)
 		{
 			fadeAlpha = 255;
-			SCENE_MGR.ChangeScene(SceneIds::Select);
+			SCENE_MGR.ChangeScene(SceneIds::Mode);
 			SoundMgr::soundIntro.pause();
 		}
 		fadeRect.setFillColor(sf::Color(0, 0, 0, (char)fadeAlpha));

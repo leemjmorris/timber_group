@@ -12,6 +12,9 @@ void Framework::Init(int w, int h, const std::string& t)
     soundIds.push_back("sound/intro_music.mp3");
     soundIds.push_back("sound/player1_select.wav");
     soundIds.push_back("sound/player2_select.wav");
+    soundIds.push_back("sound/mode_select.wav");
+    soundIds.push_back("sound/char_select.wav");
+    soundIds.push_back("sound/game_play.wav");
 
 	TEXTURE_MGR.Load(texIds);
 	FONT_MGR.Load(fontIds);

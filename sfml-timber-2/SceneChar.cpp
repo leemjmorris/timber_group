@@ -48,6 +48,9 @@ void SceneChar::Init()
 	textP2.setCharacterSize(25);
 	textP2.setFillColor(sf::Color::Blue);
 
+	textSelectGuide.setCharacterSize(70);
+	textSelectGuide.setFillColor(sf::Color::White);
+
 	Scene::Init();
 }
 
@@ -73,10 +76,18 @@ void SceneChar::SetP2Message(const std::string& msg)
 	Utils::SetOrigin(textP2, Origins::MC);
 }
 
+void SceneChar::SetGuideMessage(const std::string& msg)
+{
+	textSelectGuide.setString(msg);
+	Utils::SetOrigin(textSelectGuide, Origins::MC);
+}
+
 void SceneChar::Enter()
 {
 	Scene::Enter();
 	Reset();
+
+	SoundMgr::soundCharSelect.play();
 }
 
 void SceneChar::Reset()
@@ -104,6 +115,9 @@ void SceneChar::Reset()
 	textP2.setFont(FONT_MGR.Get(fontId));
 	textP2.setPosition(player->GetPosition().x + 300.f, bounds.height * 0.5f - 125.f);
 
+	textSelectGuide.setFont(FONT_MGR.Get(fontId));
+	textSelectGuide.setPosition(x + 300.f, y - 400.f);
+
 	isShowP1Message = true;
 	isShowP2Message = true;
 
@@ -114,6 +128,7 @@ void SceneChar::Reset()
 
 	SetP1Message("Player 2");
 	SetP2Message("Player 1");
+	SetGuideMessage("P1 [ ENTER ]           P2 [ L-SHIFT ]");
 }
 
 
@@ -122,7 +137,8 @@ void SceneChar::Update(float dt)
 	Scene::Update(dt);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace))
 	{
-		SCENE_MGR.ChangeScene(SceneIds::Mode);  // ���� ������ ��ȯ
+		SCENE_MGR.ChangeScene(SceneIds::Mode);
+		SoundMgr::soundCharSelect.pause();
 	}
 
 	if (!isP2Selected)
@@ -220,6 +236,7 @@ void SceneChar::Update(float dt)
 	if (isP1Selected && isP2Selected)
 	{
 		SCENE_MGR.ChangeScene(SceneIds::Game2);
+		SoundMgr::soundCharSelect.pause();
 	}
 }
 
@@ -228,5 +245,6 @@ void SceneChar::Draw(sf::RenderWindow& window)
 	Scene::Draw(window);
 	window.draw(textP1);
 	window.draw(textP2);
+	window.draw(textSelectGuide);
 }
 

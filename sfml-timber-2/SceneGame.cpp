@@ -17,7 +17,7 @@ SceneGame::~SceneGame()
 
 void SceneGame::Init()
 {
-    texIds.push_back("graphics/background.png");
+    texIds.push_back("graphics/background.jpg");
     texIds.push_back("graphics/cloud.png");
     texIds.push_back("graphics/bee.png");
     texIds.push_back("graphics/tree.png");
@@ -32,7 +32,7 @@ void SceneGame::Init()
         
     //
    
-    AddGameObject(new SpriteGo("graphics/background.png"));
+    AddGameObject(new SpriteGo("graphics/background.jpg"));
     
     for (int i = 0; i < 3; ++i)
     {
@@ -62,6 +62,8 @@ void SceneGame::Enter()
 {
     Scene::Enter();
 
+    SoundMgr::soundGamePlay.play();
+
     sf::Vector2f pos = tree->GetPosition();
     pos.y = 950.f;
     player->SetPosition(pos);
@@ -86,7 +88,8 @@ void SceneGame::Update(float dt)
     Scene::Update(dt);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace))
     {
-        SCENE_MGR.ChangeScene(SceneIds::Mode);  // 선택 씬으로 전환
+        SCENE_MGR.ChangeScene(SceneIds::Mode); // 선택 씬으로 전환
+        SoundMgr::soundGamePlay.pause();
     }
 
     if (isPlaying)

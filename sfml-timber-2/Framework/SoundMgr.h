@@ -11,6 +11,9 @@ public:
 	static sf::Sound soundIntro;
 	static sf::Sound soundP1Select;
 	static sf::Sound soundP2Select;
+	static sf::Sound soundModeSelect;
+	static sf::Sound soundCharSelect;
+	static sf::Sound soundGamePlay;
 
 	static void Init();
 	static void Clear();

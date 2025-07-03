@@ -31,6 +31,7 @@ public:
 	~SceneSelectMode()override=default;
 
 	void SetModeTitle(const std::string& msg);
+	void Enter() override;
 
 	void Init() override;
 	void Update(float dt) override;

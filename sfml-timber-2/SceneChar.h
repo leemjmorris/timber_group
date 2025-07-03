@@ -37,6 +37,7 @@ public:
 
 	void SetP1Message(const std::string& msg);
 	void SetP2Message(const std::string& msg);
+	void SetGuideMessage(const std::string& msg);
 	void SetShowP1Message(bool show) { isShowP1Message = show; }
 	void SetShowP2Message(bool show) { isShowP2Message = show; }
 
