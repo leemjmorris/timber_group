@@ -97,6 +97,7 @@ void SceneGame2::Enter()
     uiHud1->SetShowMassage(true);
     uiHud1->SetMessage("Enter to Start!");
     uiHud2->SetShowMassage(false);
+    isPlaying = false;
 }
 
 void SceneGame2::Exit()
